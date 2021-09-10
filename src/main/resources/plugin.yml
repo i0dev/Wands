@@ -4,3 +4,7 @@ version: 1
 author: i01
 description: wands
 website: https://i0dev.com/
+commands:
+  wand:
+    description: Main Wand Cmd
+    usage: /wand give <type> [player]

@@ -1,5 +1,6 @@
 package com.i0dev.lightningWand;
 
+import com.i0dev.lightningWand.commands.CmdWand;
 import com.i0dev.lightningWand.config.GeneralConfig;
 import com.i0dev.lightningWand.handlers.WandHandler;
 import com.i0dev.lightningWand.managers.ConfigManager;
@@ -8,6 +9,7 @@ import com.i0dev.lightningWand.templates.AbstractCommand;
 import com.i0dev.lightningWand.templates.AbstractConfiguration;
 import com.i0dev.lightningWand.templates.AbstractListener;
 import com.i0dev.lightningWand.templates.AbstractManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -25,7 +27,8 @@ public class Heart extends JavaPlugin {
         managers.addAll(Arrays.asList(
                 new WandManager(this),
                 new ConfigManager(this),
-                new WandHandler(this)
+                new WandHandler(this),
+                new CmdWand(this, "wand")
         ));
 
         configs.addAll(Arrays.asList(
@@ -53,11 +56,16 @@ public class Heart extends JavaPlugin {
         configs.clear();
         managers.forEach(AbstractManager::deinitialize);
         managers.clear();
+        Bukkit.getScheduler().cancelTasks(this);
         System.out.println("\n\n\ndisabled\n\n\n");
     }
 
     public <T> T getManager(Class<T> clazz) {
         return (T) managers.stream().filter(manager -> manager.getClass().equals(clazz)).findFirst().orElse(null);
+    }
+
+    public <T> T getConfig(Class<T> clazz) {
+        return (T) configs.stream().filter(config -> config.getClass().equals(clazz)).findFirst().orElse(null);
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class NBTEditor {
 
     /*
-    Credit given to EmberCM
+    Full Credit given to EmberCM
     Discord: Ember#1404
     GitHub: https://github.com/EmberCM
      */
@@ -37,7 +37,7 @@ public class NBTEditor {
         String[] list = string.split("_");
         StringBuilder s = new StringBuilder();
         Arrays.stream(list).forEach(st -> s.append(st.substring(0, 1).toUpperCase()).append(st.substring(1).toLowerCase()).append("_"));
-        return s.toString().substring(0, s.length() - 1);
+        return s.substring(0, s.length() - 1);
     }
 
     public static <T> T get(ItemStack item, String key, Class<T> type) {
