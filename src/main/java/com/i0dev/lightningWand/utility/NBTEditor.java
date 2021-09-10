@@ -6,6 +6,13 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 
 public class NBTEditor {
+
+    /*
+    Credit given to EmberCM
+    Discord: Ember#1404
+    GitHub: https://github.com/EmberCM
+     */
+
     public static ItemStack set(ItemStack item, String key, Object value, Class<?> type) {
         try {
             if (item == null) return null;

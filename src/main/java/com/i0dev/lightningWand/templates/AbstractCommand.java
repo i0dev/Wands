@@ -14,6 +14,13 @@ import java.util.List;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class AbstractCommand extends AbstractManager implements CommandExecutor, TabExecutor {
+
+    /*
+    Credit given to EmberCM
+    Discord: Ember#1404
+    GitHub: https://github.com/EmberCM
+     */
+
     String command;
 
     public AbstractCommand(Heart heart, String command) {

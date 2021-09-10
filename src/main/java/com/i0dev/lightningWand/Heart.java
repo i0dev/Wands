@@ -20,7 +20,6 @@ public class Heart extends JavaPlugin {
     List<AbstractConfiguration> configs = new ArrayList<>();
 
     @Override
-
     public void onEnable() {
         System.out.println("\n\n\nwands enabled\n\n");
         managers.addAll(Arrays.asList(

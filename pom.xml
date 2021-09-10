@@ -71,7 +71,7 @@
             <artifactId>spigot</artifactId>
             <version>1</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../../../OneDrive/Development/__Java/Dependencies/Hyperion.jar</systemPath>
+            <systemPath>${basedir}/../../../Dependencies/Hyperion.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
