@@ -2,14 +2,12 @@ package com.i0dev.lightningWand.templates;
 
 
 import com.i0dev.lightningWand.Heart;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Setter
 public class AbstractManager {
 
     /*
@@ -19,6 +17,7 @@ public class AbstractManager {
      */
 
     public Heart heart;
+    public boolean loaded = false;
 
     public void initialize() {
 
@@ -26,5 +25,9 @@ public class AbstractManager {
 
     public void deinitialize() {
 
+    }
+
+    public AbstractManager(Heart heart) {
+        this.heart = heart;
     }
 }
