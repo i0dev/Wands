@@ -19,7 +19,15 @@ import java.util.List;
 public class GeneralConfig extends AbstractConfiguration {
 
     List<Wand> wands = Collections.singletonList(
-            new Wand("Tier 1 Wand", Arrays.asList("", "Tier 1 wand, right click to use"), "BLAZE_ROD", (short) 0, true, 1.0, 30, "tier1", getHeart()));
+            new Wand("&e&lTier 1 Lightning Wand",
+                    Arrays.asList("&7Use this wand to charge creepers, or just", "&7strike lightning on the ground!", "", "&7Cooldown: &c{cooldown}", "&7Knockback Power: &c{kb}"),
+                    "BLAZE_ROD",
+                    (short) 0,
+                    true,
+                    1.0,
+                    30,
+                    "tier1",
+                    getHeart()));
 
     public GeneralConfig(Heart heart, String path) {
         this.path = path;
