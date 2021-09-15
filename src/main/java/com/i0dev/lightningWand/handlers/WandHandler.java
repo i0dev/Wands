@@ -3,6 +3,7 @@ package com.i0dev.lightningWand.handlers;
 import com.i0dev.lightningWand.Heart;
 import com.i0dev.lightningWand.config.GeneralConfig;
 import com.i0dev.lightningWand.config.MessageConfig;
+import com.i0dev.lightningWand.hooks.MCoreFactionsHook;
 import com.i0dev.lightningWand.managers.MessageManager;
 import com.i0dev.lightningWand.managers.WandManager;
 import com.i0dev.lightningWand.objects.Wand;
@@ -88,6 +89,14 @@ public class WandHandler extends AbstractListener {
         for (Wand wand : wandManager.getWands()) {
             if (!Material.getMaterial(wand.getMaterial()).equals(item.getType())) continue;
             if (!NBTEditor.get(item, "id").equals(wand.getId())) continue;
+
+            if (getHeart().isUsingMCoreFactions() && cnf.isDenySystemFactionUse()) {
+                if (MCoreFactionsHook.isSystemFaction(location)) {
+                    msgManager.msg(player, msg.getCantUseInSystemFaction());
+                    return;
+                }
+            }
+
             List<WandManager.CooldownObj> wandsFiltered = wandManager.getCooldown().stream().filter(cooldownObj -> cooldownObj.getWand().getId().equals(wand.getId())).collect(Collectors.toList());
             List<UUID> uuids = new ArrayList<>();
             if ("0".equalsIgnoreCase(NBTEditor.get(item, "uses"))) {

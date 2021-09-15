@@ -24,6 +24,7 @@ public class GeneralConfig extends AbstractConfiguration {
     }
 
     boolean allowHittingPlayersWithWand = false;
+    boolean denySystemFactionUse = true;
 
     List<Wand> wands = Arrays.asList(
             new Wand("&e&lTier 1 Lightning Wand",

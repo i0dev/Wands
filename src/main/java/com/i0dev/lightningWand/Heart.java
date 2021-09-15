@@ -13,6 +13,7 @@ import com.i0dev.lightningWand.templates.AbstractManager;
 import com.i0dev.lightningWand.utility.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -25,9 +26,17 @@ public class Heart extends JavaPlugin {
     List<AbstractManager> managers = new ArrayList<>();
     List<AbstractConfiguration> configs = new ArrayList<>();
 
+
+    boolean usingPapi;
+    boolean usingMCoreFactions;
+
     @Override
     public void onEnable() {
-        System.out.println("\n\n\nwands enabled\n\n");
+
+        usingPapi = getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
+        Plugin factions = getServer().getPluginManager().getPlugin("Factions");
+        usingMCoreFactions = factions != null && factions.getDescription().getVersion().startsWith("2.");
+
         managers.addAll(Arrays.asList(
                 new WandManager(this),
                 new WandHandler(this),
@@ -40,12 +49,12 @@ public class Heart extends JavaPlugin {
                 new MessageConfig(this, getDataFolder() + "/Messages.json")
         ));
 
-
         reload();
+        System.out.println("\u001B[32m" + this.getDescription().getName() + " by: " + this.getDescription().getAuthors().get(0) + " has been enabled.");
     }
 
     public void reload() {
-        // old --- new
+        // old ~ new
         ArrayList<MessageManager.Pair<AbstractConfiguration, AbstractConfiguration>> toReplace = new ArrayList<>();
         configs.forEach(abstractConfiguration -> toReplace.add(new MessageManager.Pair<>(abstractConfiguration, ConfigUtil.load(abstractConfiguration, this))));
         toReplace.forEach(pairs -> {
@@ -54,15 +63,12 @@ public class Heart extends JavaPlugin {
         });
 
         managers.forEach(abstractManager -> {
-            if (abstractManager.isLoaded())
-                abstractManager.deinitialize();
-            if (abstractManager instanceof AbstractListener) {
+            if (abstractManager.isLoaded()) abstractManager.deinitialize();
+            if (abstractManager instanceof AbstractListener)
                 getServer().getPluginManager().registerEvents((AbstractListener) abstractManager, this);
-                System.out.println("resgisted event listener: " + abstractManager.getClass().getSimpleName());
-            } else if (abstractManager instanceof AbstractCommand) {
+            else if (abstractManager instanceof AbstractCommand) {
                 getCommand(((AbstractCommand) abstractManager).getCommand()).setExecutor(((AbstractCommand) abstractManager));
                 getCommand(((AbstractCommand) abstractManager).getCommand()).setTabCompleter(((AbstractCommand) abstractManager));
-                System.out.println("resgisted cmd: " + abstractManager.getClass().getSimpleName());
             }
             abstractManager.initialize();
             abstractManager.setLoaded(true);
@@ -76,7 +82,7 @@ public class Heart extends JavaPlugin {
         managers.forEach(AbstractManager::deinitialize);
         managers.clear();
         Bukkit.getScheduler().cancelTasks(this);
-        System.out.println("\n\n\ndisabled\n\n\n");
+        System.out.println("\u001B[31m" + this.getDescription().getName() + " by: " + this.getDescription().getAuthors().get(0) + " has been disabled.");
     }
 
     public <T> T getManager(Class<T> clazz) {
