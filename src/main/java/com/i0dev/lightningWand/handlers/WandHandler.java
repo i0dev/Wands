@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -65,6 +66,23 @@ public class WandHandler extends AbstractListener {
         perform(e.getPlayer(), e.getRightClicked().getLocation(), e.getPlayer().getItemInHand());
     }
 
+    @EventHandler
+    public void onPlayerHit(EntityDamageByEntityEvent e) {
+        if (cnf.isAllowHittingPlayersWithWand()) return;
+        if (!(e.getDamager() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player)) return;
+        Player player = ((Player) e.getDamager());
+        ItemStack item = player.getItemInHand();
+        if (item == null || Material.AIR.equals(item.getType())) return;
+        for (Wand wand : wandManager.getWands()) {
+            if (!Material.getMaterial(wand.getMaterial()).equals(item.getType())) continue;
+            if (!NBTEditor.get(item, "id").equals(wand.getId())) continue;
+            e.setCancelled(true);
+            msgManager.msg(player, msg.getCantHitPlayers());
+            break;
+        }
+    }
+
 
     public void perform(Player player, Location location, ItemStack item) {
         for (Wand wand : wandManager.getWands()) {
@@ -86,22 +104,23 @@ public class WandHandler extends AbstractListener {
             msgManager.msg(player, msg.getYouStruck());
             wandManager.getCooldown().add(new WandManager.CooldownObj(wand, getHeart(), System.currentTimeMillis() + (wand.getCooldownSeconds() * 1000), player.getUniqueId()));
             String uses = NBTEditor.get(item, "uses");
-            long usesL = Long.parseLong(uses);
-            item = NBTEditor.set(item, "uses", (usesL - 1) + "");
+            if (!"-1".equalsIgnoreCase(uses)) {
+                long usesL = Long.parseLong(uses);
+                item = NBTEditor.set(item, "uses", (usesL - 1) + "");
 
-            List<String> newLore = new ArrayList<>();
-            wand.getLore().forEach(s -> {
-                newLore.add(msgManager.pair(s,
-                        new MessageManager.Pair<>("{kb}", wand.getKnockback() + ""),
-                        new MessageManager.Pair<>("{cooldown}", wand.getCooldownSeconds() + ""),
-                        new MessageManager.Pair<>("{uses}", (usesL - 1) + "")
-                ));
-            });
-            ItemMeta meta = item.getItemMeta();
-            meta.setLore(Utility.color(newLore));
-            item.setItemMeta(meta);
-
-            player.setItemInHand(item);
+                List<String> newLore = new ArrayList<>();
+                wand.getLore().forEach(s -> {
+                    newLore.add(msgManager.pair(s,
+                            new MessageManager.Pair<>("{kb}", wand.getKnockback() + ""),
+                            new MessageManager.Pair<>("{cooldown}", wand.getCooldownSeconds() + ""),
+                            new MessageManager.Pair<>("{uses}", (usesL - 1) + "")
+                    ));
+                });
+                ItemMeta meta = item.getItemMeta();
+                meta.setLore(Utility.color(newLore));
+                item.setItemMeta(meta);
+                player.setItemInHand(item);
+            }
             break;
         }
     }

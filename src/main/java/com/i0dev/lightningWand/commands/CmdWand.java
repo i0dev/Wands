@@ -45,6 +45,7 @@ public class CmdWand extends AbstractCommand {
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
             msgManager.msg(sender, msg.getWandGiveUsage());
+            msgManager.msg(sender, msg.getWandReloadUsage());
             return;
         }
 
@@ -100,7 +101,7 @@ public class CmdWand extends AbstractCommand {
                 newLore.add(msgManager.pair(s,
                         new MessageManager.Pair<>("{kb}", foundWand.getKnockback() + ""),
                         new MessageManager.Pair<>("{cooldown}", foundWand.getCooldownSeconds() + ""),
-                        new MessageManager.Pair<>("{uses}", foundWand.getUses() + "")
+                        new MessageManager.Pair<>("{uses}", foundWand.getUses() == -1 ? "Infinite" : foundWand.getUses() + "")
                 ));
             });
 
@@ -127,10 +128,13 @@ public class CmdWand extends AbstractCommand {
         }
     }
 
+    List<String> blank = new ArrayList<>();
+
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) return Arrays.asList("give", "reload");
         if (args[0].equalsIgnoreCase("give")) {
+            if (!sender.hasPermission("wands.give")) return blank;
             if (args.length == 2) return null;
             if (args.length == 3) {
                 List<String> ret = new ArrayList<>();
@@ -139,6 +143,6 @@ public class CmdWand extends AbstractCommand {
             }
             if (args.length == 4) return Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         }
-        return new ArrayList<>();
+        return blank;
     }
 }
