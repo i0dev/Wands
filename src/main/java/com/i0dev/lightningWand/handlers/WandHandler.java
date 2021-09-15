@@ -72,6 +72,10 @@ public class WandHandler extends AbstractListener {
             if (!NBTEditor.get(item, "id").equals(wand.getId())) continue;
             List<WandManager.CooldownObj> wandsFiltered = wandManager.getCooldown().stream().filter(cooldownObj -> cooldownObj.getWand().getId().equals(wand.getId())).collect(Collectors.toList());
             List<UUID> uuids = new ArrayList<>();
+            if ("0".equalsIgnoreCase(NBTEditor.get(item, "uses"))) {
+                msgManager.msg(player, msg.getNoMoreUses());
+                return;
+            }
             wandsFiltered.forEach(cooldownObj -> uuids.add(cooldownObj.getUuid()));
             if (uuids.contains(player.getUniqueId())) {
                 WandManager.CooldownObj obj = wandsFiltered.stream().filter(cooldownObj -> cooldownObj.getUuid().equals(player.getUniqueId())).findAny().orElse(null);
