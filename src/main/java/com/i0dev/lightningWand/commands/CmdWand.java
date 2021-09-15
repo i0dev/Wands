@@ -7,8 +7,10 @@ import com.i0dev.lightningWand.managers.WandManager;
 import com.i0dev.lightningWand.objects.Wand;
 import com.i0dev.lightningWand.templates.AbstractCommand;
 import com.i0dev.lightningWand.utility.NBTEditor;
+import com.i0dev.lightningWand.utility.Utility;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -75,13 +77,35 @@ public class CmdWand extends AbstractCommand {
                         new MessageManager.Pair<>("{list}", wandsList.substring(0, wandsList.length() - 2)));
                 return;
             }
+            int amt = 1;
+            if (args.length == 4) {
+                Integer amt1 = Utility.getInt(args[3]);
+                if (amt1 == null) {
+                    msgManager.msg(sender, msg.getInvalidNumber(),
+                            new MessageManager.Pair<>("{num}", args[3]));
+                    return;
+                }
+                amt = amt1;
+            }
 
-            ItemStack wandToGive = new ItemStack(Material.getMaterial(foundWand.getMaterial()));
+            List<String> newLore = new ArrayList<>();
+            foundWand.getLore().forEach(s -> {
+                newLore.add(msgManager.pair(s,
+                        new MessageManager.Pair<>("{kb}", foundWand.getKnockback() + ""),
+                        new MessageManager.Pair<>("{cooldown}", foundWand.getCooldownSeconds() + ""),
+                        new MessageManager.Pair<>("{uses}", foundWand.getUses() + "")
+                ));
+            });
+
+
+            ItemStack wandToGive = Utility.makeItem(Material.getMaterial(foundWand.getMaterial()), amt, foundWand.getData(), foundWand.getDisplayName(), newLore, foundWand.isGlow());
             ItemMeta meta = wandToGive.getItemMeta();
-            meta.setLore(foundWand.getLore());
-            meta.setDisplayName(foundWand.getDisplayName());
+            meta.addEnchant(Enchantment.KNOCKBACK, foundWand.getKnockback(), true);
             wandToGive.setItemMeta(meta);
+
+
             wandToGive = NBTEditor.set(wandToGive, "id", foundWand.getId());
+            wandToGive = NBTEditor.set(wandToGive, "uses", foundWand.getUses() + "");
 
             player.getInventory().addItem(wandToGive);
             msgManager.msg(player, msg.getReceivedWand(),
