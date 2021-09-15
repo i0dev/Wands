@@ -18,7 +18,12 @@ public class MessageConfig extends AbstractConfiguration {
     String cantFindPlayer = "&cThe player: &f{player}&c cannot be found!";
     String receivedWand = "&7You have received a {wand} from &c{player}";
     String gaveWand = "&7You have given &c{player}&7: {wand}";
+    String onCoolDown = "&cYou are on a cool-down for using this wand for another &f{sec}&c seconds.";
+    String youStruck = "&7You have&a successfully&7 struck lightning!";
 
+    String cantHitPlayers = "&cYou cannot hit players with a wand!";
+
+    String invalidNumber = "&cThe number &f{num} &cis invalid! Try again.";
     String reloadedConfig = "&7You have&a reloaded&7 the configuration.";
 
     public MessageConfig(Heart heart, String path) {
