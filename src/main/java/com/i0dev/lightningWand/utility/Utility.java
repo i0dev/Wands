@@ -37,4 +37,13 @@ public class Utility {
         return item;
     }
 
+    public static Integer getInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+
 }
