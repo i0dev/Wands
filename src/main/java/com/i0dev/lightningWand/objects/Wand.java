@@ -24,9 +24,9 @@ public class Wand {
     boolean glow;
 
     //Abilities
-    double knockback;
+    int knockback;
     long cooldownSeconds;
-
+    long uses;
 
     //Backend
     String id;
