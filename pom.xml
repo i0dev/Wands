@@ -56,6 +56,10 @@
             <id>projectlombok.org</id>
             <url>http://projectlombok.org/mavenrepo</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -90,6 +94,13 @@
             <version>1</version>
             <scope>system</scope>
             <systemPath>${basedir}/../../../Dependencies/MassiveCore.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

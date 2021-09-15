@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -24,8 +25,9 @@ public class MessageManager extends AbstractManager {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    public String papi(String s) {
-        return s;
+    public String papi(CommandSender sender, String s) {
+        if (!getHeart().isUsingPapi() || !(sender instanceof Player)) return s;
+        return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders((Player) sender, s);
     }
 
     public String pair(String msg, Pair<String, String>... pairs) {
@@ -37,12 +39,12 @@ public class MessageManager extends AbstractManager {
 
     @SafeVarargs
     public final void msg(CommandSender sender, String msg, Pair<String, String>... pairs) {
-        sender.sendMessage(color(papi(pair(msg, pairs))));
+        sender.sendMessage(color(papi(sender, pair(msg, pairs))));
     }
 
     @SafeVarargs
     public final void msg(CommandSender sender, Collection<String> msg, Pair<String, String>... pairs) {
-        msg.forEach(s -> sender.sendMessage(color(papi(pair(s, pairs)))));
+        msg.forEach(s -> sender.sendMessage(color(papi(sender, pair(s, pairs)))));
     }
 
     public Player getPlayer(String s) {

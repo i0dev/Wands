@@ -34,6 +34,7 @@ public class Heart extends JavaPlugin {
     public void onEnable() {
 
         usingPapi = getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
+        System.out.println("Placeholder api enabled: " + usingPapi);
         Plugin factions = getServer().getPluginManager().getPlugin("Factions");
         usingMCoreFactions = factions != null && factions.getDescription().getVersion().startsWith("2.");
 
