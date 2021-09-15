@@ -8,3 +8,10 @@ commands:
   wand:
     description: Main Wand Cmd
     usage: /wand give <type> [player]
+permissions:
+  wands.give:
+    description: Give a wand
+    default: op
+  wands.reoad:
+    description: Reload config
+    default: op

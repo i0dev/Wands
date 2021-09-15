@@ -26,6 +26,7 @@ public class MessageConfig extends AbstractConfiguration {
 
     String invalidNumber = "&cThe number &f{num} &cis invalid! Try again.";
     String reloadedConfig = "&7You have&a reloaded&7 the configuration.";
+    String noPermission = "&cYou don not have permission to run that command.";
 
     public MessageConfig(Heart heart, String path) {
         this.path = path;

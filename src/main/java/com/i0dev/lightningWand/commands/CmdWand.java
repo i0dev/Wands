@@ -43,20 +43,27 @@ public class CmdWand extends AbstractCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-
-        // perm check
-
         if (args.length == 0) {
             msgManager.msg(sender, msg.getWandGiveUsage());
             return;
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
+            if (!sender.hasPermission("wands.reload")) {
+                msgManager.msg(sender, msg.getNoPermission());
+                return;
+            }
             getHeart().reload();
+            msgManager.msg(sender, msg.getReloadedConfig());
             return;
         }
 
         if (args[0].equalsIgnoreCase("give")) {
+            if (!sender.hasPermission("wands.give")) {
+                msgManager.msg(sender, msg.getNoPermission());
+                return;
+            }
+
             if (args.length < 3) {
                 msgManager.msg(sender, msg.getWandGiveUsage());
                 return;
@@ -122,19 +129,16 @@ public class CmdWand extends AbstractCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        System.out.println(Arrays.toString(args));
         if (args.length == 1) return Arrays.asList("give", "reload");
         if (args[0].equalsIgnoreCase("give")) {
-            List<String> ret = new ArrayList<>();
             if (args.length == 2) return null;
             if (args.length == 3) {
+                List<String> ret = new ArrayList<>();
                 wandManager.getWands().forEach(wand -> ret.add(wand.getId()));
                 return ret;
             }
             if (args.length == 4) return Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         }
-
         return new ArrayList<>();
-
     }
 }
