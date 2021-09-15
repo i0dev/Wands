@@ -73,5 +73,23 @@
             <scope>system</scope>
             <systemPath>${basedir}/../../../Dependencies/Hyperion.jar</systemPath>
         </dependency>
+
+
+        <dependency>
+            <groupId>mcore-factions</groupId>
+            <artifactId>mcore</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../../../Dependencies/Factions.jar</systemPath>
+        </dependency>
+
+
+        <dependency>
+            <groupId>mcore</groupId>
+            <artifactId>mcore</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../../../Dependencies/MassiveCore.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
