@@ -14,6 +14,7 @@ import lombok.ToString;
 public class MessageConfig extends AbstractConfiguration {
 
     String wandGiveUsage = "&cUsage: &7/wand give <player> <type> [amount]";
+    String wandReloadUsage = "&cUsage: &7/wand reload";
     String wandNotFound = "&cThe wand &f{wand}&c was not found! &7Wands: &f{list}";
     String cantFindPlayer = "&cThe player: &f{player}&c cannot be found!";
     String receivedWand = "&7You have received a {wand} from &c{player}";
