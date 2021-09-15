@@ -20,6 +20,7 @@ public class MessageConfig extends AbstractConfiguration {
     String gaveWand = "&7You have given &c{player}&7: {wand}";
     String onCoolDown = "&cYou are on a cool-down for using this wand for another &f{sec}&c seconds.";
     String youStruck = "&7You have&a successfully&7 struck lightning!";
+    String noMoreUses = "&cYour wand is broken! It has no more remaining uses.";
 
     String cantHitPlayers = "&cYou cannot hit players with a wand!";
 
