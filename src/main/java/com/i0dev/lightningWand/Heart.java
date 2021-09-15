@@ -51,6 +51,19 @@ public class Heart extends JavaPlugin {
         ));
 
         reload();
+
+        managers.forEach(abstractManager -> {
+            if (abstractManager.isLoaded()) abstractManager.deinitialize();
+            if (abstractManager instanceof AbstractListener)
+                getServer().getPluginManager().registerEvents((AbstractListener) abstractManager, this);
+            else if (abstractManager instanceof AbstractCommand) {
+                getCommand(((AbstractCommand) abstractManager).getCommand()).setExecutor(((AbstractCommand) abstractManager));
+                getCommand(((AbstractCommand) abstractManager).getCommand()).setTabCompleter(((AbstractCommand) abstractManager));
+            }
+            abstractManager.initialize();
+            abstractManager.setLoaded(true);
+        });
+
         System.out.println("\u001B[32m" + this.getDescription().getName() + " by: " + this.getDescription().getAuthors().get(0) + " has been enabled.");
     }
 
