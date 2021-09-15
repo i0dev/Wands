@@ -13,6 +13,7 @@ public class MCoreFactionsHook {
     }
 
     public static boolean isSystemFaction(Location location) {
+        if (isWilderness(location)) return false;
         return BoardColl.get().getFactionAt(PS.valueOf(location)).isSystemFaction();
     }
 
