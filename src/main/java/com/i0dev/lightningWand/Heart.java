@@ -13,6 +13,7 @@ import com.i0dev.lightningWand.templates.AbstractManager;
 import com.i0dev.lightningWand.utility.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -75,18 +76,6 @@ public class Heart extends JavaPlugin {
             configs.remove(pairs.getKey());
             configs.add(pairs.getValue());
         });
-
-        managers.forEach(abstractManager -> {
-            if (abstractManager.isLoaded()) abstractManager.deinitialize();
-            if (abstractManager instanceof AbstractListener)
-                getServer().getPluginManager().registerEvents((AbstractListener) abstractManager, this);
-            else if (abstractManager instanceof AbstractCommand) {
-                getCommand(((AbstractCommand) abstractManager).getCommand()).setExecutor(((AbstractCommand) abstractManager));
-                getCommand(((AbstractCommand) abstractManager).getCommand()).setTabCompleter(((AbstractCommand) abstractManager));
-            }
-            abstractManager.initialize();
-            abstractManager.setLoaded(true);
-        });
     }
 
 
@@ -94,6 +83,7 @@ public class Heart extends JavaPlugin {
     public void onDisable() {
         configs.clear();
         managers.forEach(AbstractManager::deinitialize);
+        HandlerList.unregisterAll(this);
         managers.clear();
         Bukkit.getScheduler().cancelTasks(this);
         System.out.println("\u001B[31m" + this.getDescription().getName() + " by: " + this.getDescription().getAuthors().get(0) + " has been disabled.");
