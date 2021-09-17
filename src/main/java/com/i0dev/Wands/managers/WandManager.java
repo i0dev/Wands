@@ -6,10 +6,11 @@ import com.i0dev.Wands.objects.Wand;
 import com.i0dev.Wands.templates.AbstractManager;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Bukkit;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class WandManager extends AbstractManager {

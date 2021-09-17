@@ -6,8 +6,8 @@ import com.i0dev.Wands.managers.MessageManager;
 import com.i0dev.Wands.managers.WandManager;
 import com.i0dev.Wands.objects.Wand;
 import com.i0dev.Wands.templates.AbstractCommand;
-import com.i0dev.Wands.utility.NBTEditor;
 import com.i0dev.Wands.utility.Utility;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
@@ -111,9 +111,10 @@ public class CmdWand extends AbstractCommand {
             meta.addEnchant(Enchantment.KNOCKBACK, foundWand.getKnockback(), true);
             wandToGive.setItemMeta(meta);
 
-
-            wandToGive = NBTEditor.set(wandToGive, "id", foundWand.getId());
-            wandToGive = NBTEditor.set(wandToGive, "uses", foundWand.getUses() + "");
+            NBTItem nbtItem = new NBTItem(wandToGive);
+            nbtItem.setString("id", foundWand.getId());
+            nbtItem.setLong("uses", foundWand.getUses());
+            wandToGive = nbtItem.getItem();
 
             player.getInventory().addItem(wandToGive);
             msgManager.msg(player, msg.getReceivedWand(),

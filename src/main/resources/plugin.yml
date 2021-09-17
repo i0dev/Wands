@@ -1,12 +1,13 @@
 name: ${project.build.finalName}
 main: com.i0dev.Wands.Heart
-version: 1
+version: ${project.version}
 author: i01
 description: Configurable, customizable, lightning wands.
 website: ${project.url}
 softdepend:
   - Factions
   - PlaceHolderAPI
+  - NBTAPI
 commands:
   wand:
     description: Main Wand Cmd

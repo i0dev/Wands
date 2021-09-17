@@ -35,7 +35,6 @@ public class Heart extends JavaPlugin {
     public void onEnable() {
 
         usingPapi = getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
-        System.out.println("Placeholder api enabled: " + usingPapi);
         Plugin factions = getServer().getPluginManager().getPlugin("Factions");
         usingMCoreFactions = factions != null && factions.getDescription().getVersion().startsWith("2.");
 
@@ -52,18 +51,7 @@ public class Heart extends JavaPlugin {
         ));
 
         reload();
-
-        managers.forEach(abstractManager -> {
-            if (abstractManager.isLoaded()) abstractManager.deinitialize();
-            if (abstractManager instanceof AbstractListener)
-                getServer().getPluginManager().registerEvents((AbstractListener) abstractManager, this);
-            else if (abstractManager instanceof AbstractCommand) {
-                getCommand(((AbstractCommand) abstractManager).getCommand()).setExecutor(((AbstractCommand) abstractManager));
-                getCommand(((AbstractCommand) abstractManager).getCommand()).setTabCompleter(((AbstractCommand) abstractManager));
-            }
-            abstractManager.initialize();
-            abstractManager.setLoaded(true);
-        });
+        registerManagers();
 
         System.out.println("\u001B[32m" + this.getDescription().getName() + " by: " + this.getDescription().getAuthors().get(0) + " has been enabled.");
     }
@@ -95,6 +83,20 @@ public class Heart extends JavaPlugin {
 
     public <T> T getConfig(Class<T> clazz) {
         return (T) configs.stream().filter(config -> config.getClass().equals(clazz)).findFirst().orElse(null);
+    }
+
+    public void registerManagers() {
+        managers.forEach(abstractManager -> {
+            if (abstractManager.isLoaded()) abstractManager.deinitialize();
+            if (abstractManager instanceof AbstractListener)
+                getServer().getPluginManager().registerEvents((AbstractListener) abstractManager, this);
+            else if (abstractManager instanceof AbstractCommand) {
+                getCommand(((AbstractCommand) abstractManager).getCommand()).setExecutor(((AbstractCommand) abstractManager));
+                getCommand(((AbstractCommand) abstractManager).getCommand()).setTabCompleter(((AbstractCommand) abstractManager));
+            }
+            abstractManager.initialize();
+            abstractManager.setLoaded(true);
+        });
     }
 
 }

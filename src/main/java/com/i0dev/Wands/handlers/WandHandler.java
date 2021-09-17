@@ -8,8 +8,8 @@ import com.i0dev.Wands.managers.MessageManager;
 import com.i0dev.Wands.managers.WandManager;
 import com.i0dev.Wands.objects.Wand;
 import com.i0dev.Wands.templates.AbstractListener;
-import com.i0dev.Wands.utility.NBTEditor;
 import com.i0dev.Wands.utility.Utility;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -77,7 +77,8 @@ public class WandHandler extends AbstractListener {
         if (item == null || Material.AIR.equals(item.getType())) return;
         for (Wand wand : wandManager.getWands()) {
             if (!Material.getMaterial(wand.getMaterial()).equals(item.getType())) continue;
-            if (!NBTEditor.get(item, "id").equals(wand.getId())) continue;
+            NBTItem nbtItem = new NBTItem(item);
+            if (!wand.getId().equalsIgnoreCase(nbtItem.getString("id"))) continue;
             e.setCancelled(true);
             msgManager.msg(player, msg.getCantHitPlayers());
             break;
@@ -86,7 +87,8 @@ public class WandHandler extends AbstractListener {
 
 
     public void perform(Player player, Location location, ItemStack item) {
-        Wand wand = wandManager.getWand(NBTEditor.get(item, "id"));
+        NBTItem nbtItem = new NBTItem(item);
+        Wand wand = wandManager.getWand(nbtItem.getString("id"));
         if (wand == null) return;
         if (!Material.getMaterial(wand.getMaterial()).equals(item.getType())) return;
         if (getHeart().isUsingMCoreFactions() && cnf.isDenySystemFactionUse()) {
@@ -98,7 +100,7 @@ public class WandHandler extends AbstractListener {
 
         List<WandManager.CooldownObj> wandsFiltered = wandManager.getCooldown().stream().filter(cooldownObj -> cooldownObj.getWand().getId().equals(wand.getId())).collect(Collectors.toList());
         List<UUID> uuids = new ArrayList<>();
-        if ("0".equalsIgnoreCase(NBTEditor.get(item, "uses"))) {
+        if (0 == nbtItem.getLong("uses")) {
             msgManager.msg(player, msg.getNoMoreUses());
             return;
         }
@@ -111,17 +113,16 @@ public class WandHandler extends AbstractListener {
         location.getWorld().strikeLightning(location);
         msgManager.msg(player, msg.getYouStruck());
         wandManager.getCooldown().add(new WandManager.CooldownObj(wand, getHeart(), System.currentTimeMillis() + (wand.getCooldownSeconds() * 1000), player.getUniqueId()));
-        String uses = NBTEditor.get(item, "uses");
-        if (!"-1".equalsIgnoreCase(uses)) {
-            long usesL = Long.parseLong(uses);
-            item = NBTEditor.set(item, "uses", (usesL - 1) + "");
-
+        long uses = nbtItem.getLong("uses");
+        if (-1 != uses) {
+            nbtItem.setLong("uses", uses - 1);
+            item = nbtItem.getItem();
             List<String> newLore = new ArrayList<>();
             wand.getLore().forEach(s -> {
                 newLore.add(msgManager.pair(s,
                         new MessageManager.Pair<>("{kb}", wand.getKnockback() + ""),
                         new MessageManager.Pair<>("{cooldown}", wand.getCooldownSeconds() + ""),
-                        new MessageManager.Pair<>("{uses}", (usesL - 1) + "")
+                        new MessageManager.Pair<>("{uses}", (uses - 1) + "")
                 ));
             });
             ItemMeta meta = item.getItemMeta();
