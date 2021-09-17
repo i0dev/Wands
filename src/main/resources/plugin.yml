@@ -1,9 +1,9 @@
-name: Wands
-main: com.i0dev.lightningWand.Heart
+name: ${project.build.finalName}
+main: com.i0dev.Wands.Heart
 version: 1
 author: i01
-description: wands
-website: https://i0dev.com/
+description: Configurable, customizable, lightning wands.
+website: ${project.url}
 softdepend:
   - Factions
   - PlaceHolderAPI

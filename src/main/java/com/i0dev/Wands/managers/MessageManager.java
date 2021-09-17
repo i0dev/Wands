@@ -1,7 +1,7 @@
-package com.i0dev.lightningWand.managers;
+package com.i0dev.Wands.managers;
 
-import com.i0dev.lightningWand.Heart;
-import com.i0dev.lightningWand.templates.AbstractManager;
+import com.i0dev.Wands.Heart;
+import com.i0dev.Wands.templates.AbstractManager;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,13 +1,13 @@
-package com.i0dev.lightningWand.commands;
+package com.i0dev.Wands.commands;
 
-import com.i0dev.lightningWand.Heart;
-import com.i0dev.lightningWand.config.MessageConfig;
-import com.i0dev.lightningWand.managers.MessageManager;
-import com.i0dev.lightningWand.managers.WandManager;
-import com.i0dev.lightningWand.objects.Wand;
-import com.i0dev.lightningWand.templates.AbstractCommand;
-import com.i0dev.lightningWand.utility.NBTEditor;
-import com.i0dev.lightningWand.utility.Utility;
+import com.i0dev.Wands.Heart;
+import com.i0dev.Wands.config.MessageConfig;
+import com.i0dev.Wands.managers.MessageManager;
+import com.i0dev.Wands.managers.WandManager;
+import com.i0dev.Wands.objects.Wand;
+import com.i0dev.Wands.templates.AbstractCommand;
+import com.i0dev.Wands.utility.NBTEditor;
+import com.i0dev.Wands.utility.Utility;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
@@ -76,7 +76,7 @@ public class CmdWand extends AbstractCommand {
                 return;
             }
             String type = args[2];
-            Wand foundWand = wandManager.getWands().stream().filter(wand -> wand.getId().equals(type)).findAny().orElse(null);
+            Wand foundWand = wandManager.getWand(type);
             if (foundWand == null) {
                 StringBuilder wandsList = new StringBuilder();
                 wandManager.getWands().forEach(wand -> wandsList.append(wand.getId()).append(", "));

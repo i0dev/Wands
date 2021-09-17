@@ -1,9 +1,7 @@
-package com.i0dev.lightningWand.objects;
+package com.i0dev.Wands.objects;
 
-import com.i0dev.lightningWand.Heart;
+import com.i0dev.Wands.Heart;
 import lombok.*;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 

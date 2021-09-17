@@ -1,8 +1,8 @@
-package com.i0dev.lightningWand.utility;
+package com.i0dev.Wands.utility;
 
 import com.google.gson.*;
-import com.i0dev.lightningWand.Heart;
-import com.i0dev.lightningWand.templates.AbstractConfiguration;
+import com.i0dev.Wands.Heart;
+import com.i0dev.Wands.templates.AbstractConfiguration;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 

@@ -1,4 +1,4 @@
-package com.i0dev.lightningWand.utility;
+package com.i0dev.Wands.utility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;

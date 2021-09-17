@@ -1,4 +1,4 @@
-package com.i0dev.lightningWand.utility;
+package com.i0dev.Wands.utility;
 
 
 import org.bukkit.ChatColor;
@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Utility {

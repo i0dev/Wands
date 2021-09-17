@@ -1,15 +1,14 @@
-package com.i0dev.lightningWand.config;
+package com.i0dev.Wands.config;
 
-import com.i0dev.lightningWand.Heart;
-import com.i0dev.lightningWand.objects.Wand;
-import com.i0dev.lightningWand.templates.AbstractConfiguration;
+import com.i0dev.Wands.Heart;
+import com.i0dev.Wands.objects.Wand;
+import com.i0dev.Wands.templates.AbstractConfiguration;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Getter

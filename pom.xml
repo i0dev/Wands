@@ -4,17 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>OOPTest</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <groupId>com.i0dev</groupId>
+    <artifactId>Wands</artifactId>
+    <version>1.0.0</version>
+    <url>https://i0dev.com/</url>
+    <developers>
+        <developer>
+            <name>i01</name>
+        </developer>
+    </developers>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>i0dev.com</url>
-
     <build>
         <finalName>Wands</finalName>
         <plugins>
@@ -60,47 +63,48 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <!--    Public Dependencies    -->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
-            <groupId>spigot</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../../../Dependencies/Hyperion.jar</systemPath>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
-
-
-        <dependency>
-            <groupId>mcore-factions</groupId>
-            <artifactId>mcore</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../../../Dependencies/Factions.jar</systemPath>
-        </dependency>
-
-
-        <dependency>
-            <groupId>mcore</groupId>
-            <artifactId>mcore</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../../../Dependencies/MassiveCore.jar</systemPath>
-        </dependency>
-
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>LATEST</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--    Custom Jar Dependencies    -->
+        <dependency>
+            <groupId>mcore-factions</groupId>
+            <artifactId>mcore</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../../../../Dependencies/Factions.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>mcore</groupId>
+            <artifactId>mcore</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../../../../Dependencies/MassiveCore.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

@@ -1,9 +1,8 @@
-package com.i0dev.lightningWand.templates;
+package com.i0dev.Wands.templates;
 
 
-import com.i0dev.lightningWand.Heart;
+import com.i0dev.Wands.Heart;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter

@@ -1,9 +1,9 @@
-package com.i0dev.lightningWand.managers;
+package com.i0dev.Wands.managers;
 
-import com.i0dev.lightningWand.Heart;
-import com.i0dev.lightningWand.config.GeneralConfig;
-import com.i0dev.lightningWand.objects.Wand;
-import com.i0dev.lightningWand.templates.AbstractManager;
+import com.i0dev.Wands.Heart;
+import com.i0dev.Wands.config.GeneralConfig;
+import com.i0dev.Wands.objects.Wand;
+import com.i0dev.Wands.templates.AbstractManager;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.server.v1_8_R3.Tuple;
@@ -43,6 +43,10 @@ public class WandManager extends AbstractManager {
         }
         toRemove.forEach(cooldown::remove);
     };
+
+    public Wand getWand(String id) {
+        return wands.stream().filter(wand -> wand.getId().equalsIgnoreCase(id)).findFirst().orElse(null);
+    }
 
     @Getter
     @AllArgsConstructor

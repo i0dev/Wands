@@ -1,4 +1,4 @@
-package com.i0dev.lightningWand.hooks;
+package com.i0dev.Wands.hooks;
 
 import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.MPlayer;

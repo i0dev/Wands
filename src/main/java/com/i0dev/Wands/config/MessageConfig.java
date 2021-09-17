@@ -1,7 +1,7 @@
-package com.i0dev.lightningWand.config;
+package com.i0dev.Wands.config;
 
-import com.i0dev.lightningWand.Heart;
-import com.i0dev.lightningWand.templates.AbstractConfiguration;
+import com.i0dev.Wands.Heart;
+import com.i0dev.Wands.templates.AbstractConfiguration;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
