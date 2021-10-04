@@ -110,7 +110,7 @@ public class CmdWand extends AbstractCommand {
             ItemMeta meta = wandToGive.getItemMeta();
             meta.addEnchant(Enchantment.KNOCKBACK, foundWand.getKnockback(), true);
             wandToGive.setItemMeta(meta);
-
+            //tesitng
             NBTItem nbtItem = new NBTItem(wandToGive);
             nbtItem.setString("id", foundWand.getId());
             nbtItem.setLong("uses", foundWand.getUses());
